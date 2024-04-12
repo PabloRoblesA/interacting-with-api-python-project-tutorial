@@ -22,3 +22,6 @@ df_tracks_sort = df_tracks.sort_values(by=['popularity'])
 
 plt.scatter(x=df_tracks['popularity'],y=df_tracks['duration_ms'])
 plt.show
+
+#No hay relacion entre duracion y popularidad, debido a que el grafico no presenta un patron lineal entre ambas caracteristicas,
+#esto se debe a que toda la discografia de esta banda es excelente, independiente de su duracion ;)
