@@ -10,17 +10,22 @@ load_dotenv()
 client_id = os.environ.get('CLIENT_ID')
 client_secret = os.environ.get('CLIENT_SECRET')
 
-SP = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_uri='https://localhost'))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,client_secret=client_secret,redirect_uri='https://localhost'))
 
 ID_ARTISTA ='2ziB7fzrXBoh1HUPS6sVFn'
-response = SP.artist_top_tracks(ID_ARTISTA)
+response = sp.artist_top_tracks(ID_ARTISTA)
 
 TRACKS = response['tracks']
 df_tracks = pd.DataFrame.from_records(TRACKS)
-df_tracks_sort = df_tracks.sort_values(by=['popularity'])
-#print(df_tracks_sort.head(3))
+df_tracks.sort_values(['popularity'], inplace=True)  
+print(df_tracks.head(3))
 
+#Analisis entre popularidad y duracion de cada cancion.
 plt.scatter(x=df_tracks['popularity'],y=df_tracks['duration_ms'])
+plt.show
+
+#Analisis entre popularidad y numero de track dentro del album de cada cancion.
+plt.scatter(x=df_tracks['popularity'],y=df_tracks['track_number'])
 plt.show
 
 #No hay relacion entre duracion y popularidad, debido a que el grafico no presenta un patron lineal entre ambas caracteristicas,
